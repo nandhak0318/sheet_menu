@@ -128,14 +128,14 @@ async function Sheet_item({ sheet_id, id }: { sheet_id: string, id: number }) {
   }
   return (
     <>
-      <form action={handle} className="flex flex-col p-3 gap-2 shadow-md items-center w-fit rounded-lg  md:flex-row">
-        <input name="sheet_id" type="text" placeholder={sheet_id} defaultValue={sheet_id} className="input input-ghost w-96" />
+      <form action={handle} className="flex flex-col p-3 gap-2 shadow-md items-center w-fit rounded-lg  md:flex-row max-w-full">
+        <input name="sheet_id" type="text" placeholder={sheet_id} defaultValue={sheet_id} className="input input-ghost " />
         <div className="flex gap-1 min-w-fit">
-          <button name="edit" value="ture" className="btn btn-info">EDIT</button>
-          <button name="sync" value="sync" className="btn btn-warning">SYNC</button>
-          <button name="delete" value="delete" className="btn btn-error">DELETE</button>
-          <Link href={`/view/${id}`} className="btn btn-success">VIEW</Link>
-          <Link href={`/qr/${id}`} className="btn btn-success">Qr</Link>
+          <button name="edit" value="ture" className="btn btn-info p-3">EDIT</button>
+          <button name="sync" value="sync" className="btn btn-warning p-3">SYNC</button>
+          <button name="delete" value="delete" className="btn btn-error p-3">DELETE</button>
+          <Link href={`/view/${id}`} className="btn btn-success p-3">VIEW</Link>
+          <Link href={`/qr/${id}`} className="btn btn-success p-3">Qr</Link>
         </div>
       </form>
     </>
@@ -185,7 +185,7 @@ export default async function Page() {
     <>
       <NavBar />
       <main className=" flex-col hero-content gap-0">
-        <section className="w-full  p-6 py-1 ">
+        <section className="w-full  md:p-6 py-1 ">
           <h1 className="text-4xl font-bold tracking-tight text-green-400 sm:text-6xl">Sheets</h1>
           <div className="">
             {sheets.length == 0 ? 'no existing sheets found....' : ''}
