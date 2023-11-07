@@ -5,7 +5,7 @@ import prisma from "../../../../prisma/client";
 
 export const authOption = {
   theme:{
-    colorScheme: "light",
+    colorScheme: "light"!,
   },
   providers: [
     GitHubProvider({
