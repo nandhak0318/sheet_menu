@@ -7,8 +7,6 @@ import { google } from "googleapis"
 const sheetApi = google.sheets('v4')
 import { parser } from "../utils/parser"
 import Link from "next/link"
-import { writeFile } from "fs/promises"
-import path from "path"
 
 async function LoadSample(){
   async function load(){
@@ -39,13 +37,13 @@ async function LoadSample(){
 }
 async function sheetapi(sheet_id: string, id: number) {
   "use server"
-  // const keyfile = './creds/credentials.json'
-    const keyfile = process.env.G_ALL || " "
-    await writeFile(path.join(__dirname,'creds.json'),keyfile,'utf-8')
+  const credentials = JSON.parse(process.env.G_ALL) || " "
   const spreadSheetId = sheet_id
   const sheetName = 'Sheet1'
+  
   const auth = new google.auth.GoogleAuth({
-    keyFile: path.join(__dirname, 'creds.json'),
+    // keyFile: path.join(__dirname, 'creds.json'),
+    credentials,
     scopes: 'https://www.googleapis.com/auth/spreadsheets.readonly',
   });
 
