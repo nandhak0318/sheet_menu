@@ -11,7 +11,7 @@ export default function Qr({ params }: { params: { id: string } }) {
           <QRCode
             size={256}
             style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-            value={`${process.env.BASE_URl}/qr/${params.id}`}
+            value={`${process.env.BASE_URL}/qr/${params.id}`}
             viewBox={`0 0 256 256`}
           />
         </div>
