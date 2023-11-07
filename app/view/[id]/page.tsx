@@ -7,7 +7,6 @@ export default async function View({ params }: { params: { id: string } }) {
       id: parseInt(params.id)
     }
   })
-  console.log(content)
   return(
     <>
     <NavBar/>

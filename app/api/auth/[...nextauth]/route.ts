@@ -20,16 +20,13 @@ export const authOption = {
   callbacks:{
     async signIn(data:any){
       try {
-        console.log('maybe existing')
         let { user } = data
-        console.log(user)
         let userCol = await prisma.user.findUnique({
           where: {
             email: user.email
           }
         })
         if (!userCol) {
-          console.log('user created')
           await prisma.user.create({
             data: {
               email: user.email,

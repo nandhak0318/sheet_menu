@@ -7,14 +7,19 @@ import { google } from "googleapis"
 const sheetApi = google.sheets('v4')
 import { parser } from "../utils/parser"
 import Link from "next/link"
+import { writeFile } from "fs/promises"
+import path from "path"
+
 
 async function sheetapi(sheet_id: string, id: number) {
   "use server"
-  const keyfile = './creds/credentials.json'
+  // const keyfile = './creds/credentials.json'
+    const keyfile = process.env.G_ALL || " "
+    await writeFile(path.join(__dirname,'creds.json'),keyfile,'utf-8')
   const spreadSheetId = sheet_id
   const sheetName = 'Sheet1'
   const auth = new google.auth.GoogleAuth({
-    keyFile: keyfile,
+    keyFile: path.join(__dirname, 'creds.json'),
     scopes: 'https://www.googleapis.com/auth/spreadsheets.readonly',
   });
 
@@ -106,6 +111,7 @@ async function Sheet_item({ sheet_id, id }: { sheet_id: string, id: number }) {
           <button name="sync" value="sync" className="btn btn-warning">SYNC</button>
           <button name="delete" value="delete" className="btn btn-error">DELETE</button>
           <Link href={`/view/${id}`} className="btn btn-success">VIEW</Link>
+          <Link href={`/qr/${id}`} className="btn btn-success">Qr</Link>
         </div>
       </form>
     </>
