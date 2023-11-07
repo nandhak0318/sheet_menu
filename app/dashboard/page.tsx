@@ -10,7 +10,33 @@ import Link from "next/link"
 import { writeFile } from "fs/promises"
 import path from "path"
 
-
+async function LoadSample(){
+  async function load(){
+    "use server"
+    const session = await getServerSession()
+    const sheet_id = '1FmgCAJvDvGERHGHo6WTOqfOaIBIBmFzIBt948WsQZhs'
+    let email = session?.user?.email
+    if (email && sheet_id) {
+      const user = await prisma.user.findUnique({
+        where: {
+          email: email
+        }
+      })
+      const sheet = await prisma.sheet.create({
+        data: {
+          sheet_id: sheet_id,
+          userId: user?.id,
+        }
+      })
+    }
+    revalidatePath('/dashboard')
+  }
+  return(<>
+    <form action={load} className="toast toast-end">
+      <button  className="btn">Load Sample Sheet</button>
+    </form>
+  </>)
+}
 async function sheetapi(sheet_id: string, id: number) {
   "use server"
   // const keyfile = './creds/credentials.json'
@@ -175,6 +201,7 @@ export default async function Page() {
             <button className="btn btn-success">Create</button>
           </form>
         </section>
+        <LoadSample/>
       </main>
     </>
   )
